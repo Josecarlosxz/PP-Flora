@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block titulo %}Login — IFlora{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block conteudo %}
+
+    <div class="login-page">
+
+        <!-- LADO DA MARCA -->
+        <section class="login-brand">
+            <div class="brand-content">
+                <div class="logo-marca" aria-hidden="true">🌿</div>
+                <h1>IF<span>lora</span></h1>
+                <p>
+                    Explore informações sobre 
+                    plantas, espécies e biomas.
+                </p>
+            </div>
+        </section>
+
+        <!-- LADO DO FORMULÁRIO -->
+        <section class="login-form-section">
+            <div class="login-form">
+
+                <div class="login-header">
+                    <h2>Bem-vindo!</h2>
+                    <p>Entre na sua conta para continuar.</p>
+                </div>
+
+                <form id="loginForm" novalidate>
+
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Digite seu email"
+                               maxlength="100" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha"
+                               placeholder="Digite sua senha" required>
+                    </div>
+
+                    <div id="mensagemErro" class="mensagem-erro" hidden></div>
+
+                    <button type="submit" id="btnLogin" class="btn btn-secundario btn-bloco">
+                        Entrar
+                    </button>
+
+                </form>
+
+                <div class="login-footer">
+                    <p>Ainda não possui uma conta?</p>
+                    <a href="{{ url_for('frontend.cadastro_page') }}">Criar conta</a>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const { API, Sessao, Validacao, toast } = window.BioSistema;
+
+    const form = document.getElementById("loginForm");
+    const mensagemErro = document.getElementById("mensagemErro");
+    const btnLogin = document.getElementById("btnLogin");
+
+    form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+        mensagemErro.hidden = true;
+        Validacao.limparTodos(form);
+
+        const email = document.getElementById("email");
+        const senha = document.getElementById("senha");
+
+        /* Validação no cliente */
+        let valido = true;
+
+        if (!Validacao.emailValido(email.value.trim())) {
+            Validacao.marcarErro(email, "Informe um email válido.");
+            valido = false;
+        }
+
+        if (!senha.value) {
+            Validacao.marcarErro(senha, "Informe sua senha.");
+            valido = false;
+        }
+
+        if (!valido) { return; }
+
+        btnLogin.disabled = true;
+        btnLogin.textContent = "Entrando...";
+
+        try {
+
+            const dados = await API.post("/login/", {
+                email: email.value.trim().toLowerCase(),
+                senha: senha.value
+            });
+
+            Sessao.salvarToken(dados.token);
+            if (dados.usuario) { Sessao.salvarUsuario(dados.usuario); }
+
+            toast("Login realizado com sucesso!", "sucesso");
+            window.location.href = "/home";
+
+        } catch (erro) {
+
+            mensagemErro.hidden = false;
+            mensagemErro.textContent = erro.message;
+
+        } finally {
+
+            btnLogin.disabled = false;
+            btnLogin.textContent = "Entrar";
+
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block titulo %}IFlora — Explore o mundo da Biologia{% endblock %}
+
+{% block descricao %}IFlora permite consultar e organizar informações sobre plantas, espécies e biomas em um único lugar.{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar da landing page (visitante, sem sessão) -->
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="/" class="logo">IF<span>lora</span></a>
+            <nav class="nav-links">
+                <a href="#sobre">Sobre</a>
+                <a href="#recursos">Recursos</a>
+                <a href="{{ url_for('frontend.login_page') }}" class="btn btn-contorno">Entrar</a>
+                <a href="{{ url_for('frontend.cadastro_page') }}" class="btn btn-secundario">Criar conta</a>
+            </nav>
+        </div>
+    </header>
+{% endblock %}
+
+{% block conteudo %}
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">🌱 Sistema de Biologia</span>
+            <h1>Explore o mundo da <span>Biologia</span></h1>
+            <p>
+                O IFlora permite consultar e organizar informações
+                sobre plantas, espécies e biomas em um único lugar.
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('frontend.login_page') }}" class="btn btn-primario">
+                    Entrar no sistema
+                </a>
+                <a href="{{ url_for('frontend.cadastro_page') }}" class="btn btn-contorno">
+                    Criar uma conta
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="biology-card">
+                <div class="biology-icon">🧬</div>
+                <h2>Conhecimento biológico</h2>
+                <p>Organize e consulte informações sobre a biodiversidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="section">
+        <div class="section-header">
+            <span>SOBRE O SISTEMA</span>
+            <h2>Conheça o IFlora</h2>
+            <p>
+                Uma plataforma desenvolvida para facilitar o acesso e o
+                gerenciamento de informações relacionadas à biologia.
+            </p>
+        </div>
+    </section>
+
+    <!-- RECURSOS -->
+    <section id="recursos" class="features">
+        <div class="section-header">
+            <span>RECURSOS</span>
+            <h2>O que você pode encontrar</h2>
+        </div>
+
+        <div class="cards">
+            <!-- <article class="card">
+                <div class="card-icon">🐾</div>
+                <h3>Animais</h3>
+                <p>Consulte informações sobre animais, características, dieta e habitat.</p>
+                <a href="{{ url_for('frontend.login_page') }}">Acessar →</a>
+            </article> -->
+
+            <article class="card">
+                <div class="card-icon">🌿</div>
+                <h3>Plantas</h3>
+                <p>Consulte informações sobre plantas e suas características.</p>
+                <a href="{{ url_for('frontend.login_page') }}">Acessar →</a>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🌎</div>
+                <h3>Biomas</h3>
+                <p>Conheça os diferentes biomas e suas principais características.</p>
+                <a href="{{ url_for('frontend.login_page') }}">Acessar →</a>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🔬</div>
+                <h3>Espécies</h3>
+                <p>Consulte as espécies cadastradas no sistema.</p>
+                <a href="{{ url_for('frontend.login_page') }}">Acessar →</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Pronto para começar?</h2>
+        <p>Crie sua conta e tenha acesso ao IFlora.</p>
+        <a href="{{ url_for('frontend.cadastro_page') }}" class="btn btn-primario">
+            Criar minha conta
+        </a>
+    </section>
+
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+        <div class="footer-base">© 2026 IFlora — Sistema de Biologia</div>
+    </footer>
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block titulo %}Cadastro — IFlora{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/cadastro.css') }}">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block conteudo %}
+
+    <div class="cadastro-page">
+
+        <!-- LADO DA MARCA -->
+        <section class="cadastro-brand">
+            <div class="cadastro-brand-content">
+                <div class="logo-marca" aria-hidden="true">🌿</div>
+                <h1>IF<span>lora</span></h1>
+                <p>
+                    Explore o mundo da biologia, conheça espécies,
+                     plantas e biomas.
+                </p>
+            </div>
+        </section>
+
+        <!-- LADO DO FORMULÁRIO -->
+        <section class="cadastro-form-section">
+            <div class="cadastro-card">
+
+                <div class="cadastro-header">
+                    <h2>Criar conta</h2>
+                    <p>Cadastre-se no IFlora</p>
+                </div>
+
+                <form id="cadastroForm" novalidate>
+
+                    <div class="input-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome"
+                               placeholder="Digite seu nome"
+                               maxlength="100" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Digite seu email"
+                               maxlength="100" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha"
+                               placeholder="Mínimo de 8 caracteres"
+                               minlength="8" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="confirmarSenha">Confirmar senha</label>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha"
+                               placeholder="Digite a senha novamente"
+                               minlength="8" required>
+                    </div>
+
+                    <div id="mensagemErro" class="mensagem-erro" hidden></div>
+                    <div id="mensagemSucesso" class="mensagem-sucesso" hidden></div>
+
+                    <button type="submit" id="btnCadastro" class="btn btn-secundario btn-bloco">
+                        Criar conta
+                    </button>
+
+                </form>
+
+                <div class="cadastro-footer">
+                    <p>Já possui uma conta?</p>
+                    <a href="{{ url_for('frontend.login_page') }}">Fazer login</a>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const { API, Validacao, toast } = window.BioSistema;
+
+    const form = document.getElementById("cadastroForm");
+    const mensagemErro = document.getElementById("mensagemErro");
+    const mensagemSucesso = document.getElementById("mensagemSucesso");
+    const btnCadastro = document.getElementById("btnCadastro");
+
+    form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+        mensagemErro.hidden = true;
+        mensagemSucesso.hidden = true;
+        Validacao.limparTodos(form);
+
+        const nome = document.getElementById("nome");
+        const email = document.getElementById("email");
+        const senha = document.getElementById("senha");
+        const confirmarSenha = document.getElementById("confirmarSenha");
+
+        /* Validação no cliente */
+        let valido = true;
+
+        if (nome.value.trim().length < 3) {
+            Validacao.marcarErro(nome, "Informe seu nome completo.");
+            valido = false;
+        }
+
+        if (!Validacao.emailValido(email.value.trim())) {
+            Validacao.marcarErro(email, "Informe um email válido.");
+            valido = false;
+        }
+
+        if (!Validacao.senhaForte(senha.value)) {
+            Validacao.marcarErro(senha, "A senha deve ter ao menos 8 caracteres.");
+            valido = false;
+        }
+
+        if (senha.value !== confirmarSenha.value) {
+            Validacao.marcarErro(confirmarSenha, "As senhas não coincidem.");
+            valido = false;
+        }
+
+        if (!valido) { return; }
+
+        btnCadastro.disabled = true;
+        btnCadastro.textContent = "Criando conta...";
+
+        try {
+
+            await API.post("/usuarios/", {
+                nome: nome.value.trim(),
+                email: email.value.trim(),
+                senha: senha.value
+            });
+
+            mensagemSucesso.hidden = false;
+            mensagemSucesso.textContent = "Cadastro realizado com sucesso!";
+            toast("Conta criada! Redirecionando para o login...", "sucesso");
+
+            form.reset();
+
+            setTimeout(function () {
+                window.location.href = "/login";
+            }, 1500);
+
+        } catch (erro) {
+
+            mensagemErro.hidden = false;
+            mensagemErro.textContent = erro.message;
+
+        } finally {
+
+            btnCadastro.disabled = false;
+            btnCadastro.textContent = "Criar conta";
+
+        }
+    });
+</script>
+{% endblock %}

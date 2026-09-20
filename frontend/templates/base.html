@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description"
+          content="{% block descricao %}IFlora — consulte e organize informações sobre plantas, espécies e biomas.{% endblock %}">
+    <meta name="theme-color" content="#198754">
+
+    <!-- Favicon (evita o erro 404 no console) -->
+    <link rel="icon"
+          href="{{ url_for('static', filename='img/favicon.svg') }}"
+          type="image/svg+xml">
+
+    <title>{% block titulo %}IFlora{% endblock %}</title>
+
+    <!-- Fonte moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+          rel="stylesheet">
+
+     <!-- CSS global: reset + variáveis (:root) + botões/inputs/cards -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/base.css') }}">
+
+    <!-- Estilos específicos de cada página -->
+    {% block estilos %}{% endblock %}
+
+</head>
+
+<body>
+
+    {% block navbar %}
+        {% include 'partials/navbar.html' %}
+    {% endblock %}
+
+    <main>
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    {% block footer %}
+        {% include 'partials/footer.html' %}
+    {% endblock %}
+
+    <!-- Utilitários JS (toast, api, validação, sessão) -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+
+</html>

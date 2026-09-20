@@ -1,0 +1,47 @@
+<!-- ============================================================
+     PARTIAL: NAVBAR
+     Reutilizada em todas as páginas internas.
+     O nome do usuário e o logout são preenchidos pelo app.js
+     através dos atributos data-nome-usuario e data-logout.
+============================================================ -->
+
+<header class="navbar">
+
+    <div class="navbar-inner">
+
+        <a href="/home" class="logo">
+            IF<span>lora</span>
+        </a>
+
+        <button
+            id="navToggle"
+            class="nav-toggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="navMenu"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="navMenu" class="nav-links">
+
+            <a href="/home">Início</a>
+            <!-- <a href="/animais/">Animais</a> -->
+            <a href="/plantas/">Plantas</a>
+            <a href="/biomas/">Biomas</a>
+            <a href="/especies/">Espécies</a>
+
+            <div class="usuario-area">
+                <span data-nome-usuario>Usuário</span>
+                <button class="btn btn-contorno" data-logout>
+                    Sair
+                </button>
+            </div>
+
+        </nav>
+
+    </div>
+
+</header>

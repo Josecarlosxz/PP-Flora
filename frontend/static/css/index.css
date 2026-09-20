@@ -1,0 +1,206 @@
+/* ============================================================
+   INDEX.CSS — Landing Page (tokenizado)
+   Usa as variáveis de variables.css
+============================================================ */
+
+body {
+    background: var(--cor-fundo-alt);
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.hero {
+    max-width: var(--largura-max);
+    min-height: 650px;
+    margin: 0 auto;
+    padding: 80px 70px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 70px;
+}
+
+.hero-tag {
+    display: inline-block;
+    margin-bottom: var(--esp-6);
+    padding: 9px 16px;
+    border-radius: var(--raio-pill);
+    background: var(--cor-primaria-clara);
+    color: var(--cor-primaria-escura);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-forte);
+}
+
+.hero-content h1 {
+    max-width: 700px;
+    font-size: 58px;
+    line-height: 1.1;
+    color: var(--cor-primaria-escura);
+    margin-bottom: var(--esp-6);
+}
+
+.hero-content h1 span {
+    color: var(--cor-primaria);
+}
+
+.hero-content p {
+    max-width: 650px;
+    color: var(--cor-texto-suave);
+    font-size: var(--fs-md);
+    line-height: 1.7;
+    margin-bottom: var(--esp-8);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--esp-4);
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   VISUAL
+============================================================ */
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.biology-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 55px 40px;
+    text-align: center;
+    border-radius: var(--raio-lg);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    box-shadow: var(--sombra-primaria);
+}
+
+.biology-icon {
+    font-size: 90px;
+    margin-bottom: var(--esp-6);
+}
+
+.biology-card h2 {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--esp-4);
+}
+
+.biology-card p {
+    color: #ecfff5;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   SEÇÕES
+============================================================ */
+
+.section,
+.features {
+    padding: 90px 70px;
+}
+
+.section {
+    background: var(--cor-branco);
+    text-align: center;
+}
+
+.section-header {
+    max-width: 750px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.section-header > span {
+    color: var(--cor-primaria);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-black);
+    letter-spacing: 1.5px;
+}
+
+.section-header h2 {
+    color: var(--cor-primaria-escura);
+    font-size: 38px;
+    margin: 12px 0 18px;
+}
+
+.section-header p {
+    color: var(--cor-texto-suave);
+    line-height: 1.7;
+    font-size: var(--fs-md);
+}
+
+/* ============================================================
+   CARDS
+============================================================ */
+
+.cards {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--esp-6);
+}
+
+/* ============================================================
+   CTA
+============================================================ */
+
+.cta {
+    padding: 90px 30px;
+    text-align: center;
+    background: var(--cor-primaria-escura);
+    color: var(--cor-branco);
+}
+
+.cta h2 {
+    font-size: 38px;
+    margin-bottom: var(--esp-4);
+}
+
+.cta p {
+    margin-bottom: var(--esp-8);
+    color: #e5f8ed;
+}
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 1000px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 60px 30px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .hero-content h1 {
+        font-size: 42px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-buttons a {
+        text-align: center;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .section,
+    .features {
+        padding: 60px 25px;
+    }
+}

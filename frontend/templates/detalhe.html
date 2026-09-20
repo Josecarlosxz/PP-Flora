@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block titulo %}Detalhes — IFlora{% endblock %}
+
+{% block descricao %}Informações detalhadas sobre a flora do Brasil: onde vivem, características e curiosidades.{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/detalhe.css') }}">
+{% endblock %}
+
+{% block conteudo %}
+
+    <div class="detalhe-container">
+
+        <!-- BOTÃO VOLTAR -->
+        <a href="/home" class="detalhe-voltar">
+            ← Voltar ao mapa
+        </a>
+
+        <!-- CABEÇALHO -->
+        <header class="detalhe-header">
+            <span class="detalhe-tipo" id="detalheTipo">Carregando…</span>
+            <h1 id="detalheNome">—</h1>
+            <p class="detalhe-sub" id="detalheSub">—</p>
+        </header>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <div class="detalhe-grid">
+
+            <!-- IMAGEM REAL -->
+            <figure class="detalhe-imagem">
+                <div class="imagem-wrapper" id="imagemWrapper">
+                    <div class="imagem-loading" id="imagemLoading">
+                        <span class="spinner"></span>
+                        <p>Carregando imagem…</p>
+                    </div>
+                    <img id="detalheImagem" alt="" style="display:none;">
+                </div>
+                <figcaption id="detalheCredito"></figcaption>
+            </figure>
+
+            <!-- TEXTO DETALHADO -->
+            <article class="detalhe-texto">
+                <div class="texto-loading" id="textoLoading">
+                    <span class="spinner"></span>
+                    <p>Buscando informações…</p>
+                </div>
+
+                <div id="textoConteudo" style="display:none;">
+                    <p class="texto-resumo" id="detalheResumo"></p>
+
+                    <div class="texto-secao" id="secaoExtrato">
+                        <h2>📖 Sobre</h2>
+                        <p id="detalheExtrato"></p>
+                    </div>
+
+                    <div class="texto-secao" id="secaoHabitat">
+                        <h2>🌍 Onde vive</h2>
+                        <p id="detalheHabitat"></p>
+                    </div>
+
+                    <div class="texto-secao" id="secaoCuriosidades">
+                        <h2>💡 Curiosidades</h2>
+                        <ul id="detalheCuriosidades"></ul>
+                    </div>
+
+                    <a class="btn btn-primario detalhe-wiki"
+                       id="detalheWiki"
+                       target="_blank"
+                       rel="noopener">
+                        Ver artigo completo na Wikipédia →
+                    </a>
+                </div>
+
+                <div class="texto-erro" id="textoErro" style="display:none;">
+                    <p>😕 Não foi possível carregar as informações deste item.</p>
+                    <p class="texto-erro-dica" id="textoErroDica"></p>
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <!-- Mapa de títulos da Wikipédia (WIKI_TITULOS) -->
+    <script src="{{ url_for('static', filename='js/mapa_data.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/detalhe.js') }}"></script>
+{% endblock %}
+

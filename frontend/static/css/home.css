@@ -1,0 +1,106 @@
+/* ============================================================
+   HOME.CSS — Página inicial logada (tokenizado)
+   A navbar e o footer vêm de components.css.
+============================================================ */
+
+body {
+    background: var(--cor-fundo);
+}
+
+/* ============================================================
+   CONTAINER
+============================================================ */
+
+.home-container {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: 70px 50px;
+}
+
+/* ============================================================
+   WELCOME
+============================================================ */
+
+.welcome {
+    margin-bottom: 65px;
+    padding: 55px;
+    border-radius: var(--raio-lg);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    box-shadow: var(--sombra-primaria);
+}
+
+.welcome h1 {
+    font-size: 42px;
+    margin-bottom: var(--esp-4);
+}
+
+.welcome h1 span {
+    color: var(--cor-branco);
+}
+
+.welcome p {
+    color: #eafff2;
+    font-size: var(--fs-md);
+    line-height: 1.6;
+}
+
+/* ============================================================
+   CARDS (grid 2 colunas na home)
+============================================================ */
+
+.home-container .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--esp-6);
+}
+
+.home-container .card {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-container .card h2 {
+    color: var(--cor-primaria-escura);
+    font-size: var(--fs-lg);
+    margin-bottom: var(--esp-3);
+}
+
+.home-container .card p {
+    color: var(--cor-texto-suave);
+    line-height: 1.6;
+    margin-bottom: var(--esp-5);
+}
+
+.home-container .card a {
+    color: var(--cor-primaria);
+    font-weight: var(--fw-forte);
+    margin-top: auto;
+}
+
+.home-container .card a:hover {
+    color: var(--cor-primaria-escura);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 800px) {
+    .home-container {
+        padding: 40px 25px;
+    }
+
+    .welcome {
+        padding: 35px 25px;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+    }
+
+    .home-container .cards {
+        grid-template-columns: 1fr;
+    }
+}

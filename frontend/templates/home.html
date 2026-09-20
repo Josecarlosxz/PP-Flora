@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block titulo %}Início — IFlora{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home.css') }}">
+    <!-- Leaflet (mapa interativo) -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/mapa.css') }}">
+{% endblock %}
+
+{% block conteudo %}
+
+    <div class="home-container">
+
+        <section class="welcome">
+            <h1>Bem-vindo, <span data-nome-usuario>Usuário</span>!</h1>
+            <p>Explore as informações disponíveis no sistema de biologia.</p>
+        </section>
+
+        <!-- CARDS -->
+        <section class="cards">
+            <!-- <div class="card">
+                <h2>🐾 Animais</h2>
+                <p>Consulte informações sobre animais, características e habitats.</p>
+                <a href="/animais/">Ver animais →</a>
+            </div> -->
+
+            <div class="card">
+                <h2>🌱 Plantas</h2>
+                <p>Consulte informações sobre plantas e suas características.</p>
+                <a href="/plantas/">Ver plantas →</a>
+            </div>
+
+            <div class="card">
+                <h2>🌎 Biomas</h2>
+                <p>Conheça os diferentes biomas e suas características.</p>
+                <a href="/biomas/">Ver biomas →</a>
+            </div>
+
+            <div class="card">
+                <h2>🔬 Espécies</h2>
+                <p>Consulte as espécies cadastradas no sistema.</p>
+                <a href="/especies/">Ver espécies →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- MAPA INTERATIVO — FAUNA & FLORA -->
+    <section class="mapa-section">
+
+        <div class="mapa-header">
+            <span>Mapa Interativo</span>
+            <h2>Flora do Brasil</h2>
+            <p>Clique em um estado para descobrir a planta e a vegetação principal da região.</p>
+        </div>
+
+        <div class="mapa-wrapper">
+
+            <div id="mapaBrasil"></div>
+
+            <aside class="mapa-painel">
+
+                <div class="painel-vazio" id="painelVazio">
+                    <div class="icone">👆</div>
+                    <h3>Selecione um estado</h3>
+                    <p>Toque em qualquer estado no mapa para ver a planta e a vegetação predominante.</p>
+                </div>
+
+                <div id="painelConteudo" style="display:none;">
+                    <span class="bioma-badge" id="biomaBadge">Bioma</span>
+                    <h3 class="painel-estado-nome" id="estadoNome">Estado</h3>
+
+                    <div class="info-card planta" id="cardPlanta" role="button" tabindex="0"
+                         title="Clique para ver detalhes da planta">
+                        <div class="info-icone" id="plantaIcone">🌿</div>
+                        <div class="info-texto">
+                            <span class="info-label">Planta principal</span>
+                            <span class="info-nome" id="plantaNome">—</span>
+                            <span class="info-desc" id="plantaDesc">—</span>
+                            <span class="info-ver">Ver detalhes →</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card" id="cardVegetacao" role="button" tabindex="0"
+                         title="Clique para ver detalhes da vegetação">
+                        <div class="info-icone" id="vegIcone">🌳</div>
+                        <div class="info-texto">
+                            <span class="info-label">Vegetação principal</span>
+                            <span class="info-nome" id="vegNome">—</span>
+                            <span class="info-desc" id="vegDesc">—</span>
+                            <span class="info-ver">Ver detalhes →</span>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+        </div>
+
+        <div class="mapa-legenda" id="mapaLegenda"></div>
+
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <!-- Proteção de rota no cliente (o backend também deve proteger) -->
+    <script>
+        window.BioSistema.Sessao.exigirLogin();
+    </script>
+
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Turf.js (usado só para "fundir" os estados do mesmo bioma e
+         desenhar um contorno único por região, em vez de por estado) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script>
+
+    <!-- Dados do mapa -->
+    <script src="{{ url_for('static', filename='js/mapa_data.js') }}"></script>
+
+    <!-- Lógica do mapa -->
+    <script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
+
+{% endblock %}

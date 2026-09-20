@@ -1,0 +1,296 @@
+/* ============================================================
+   BioSistema — Mapa Interativo (Fauna & Flora)
+   ------------------------------------------------------------
+   Agora usa os DESIGN TOKENS de variables.css.
+   Assim o mapa acompanha automaticamente a paleta do sistema
+   (verde/teal + rosa) sem cores "soltas" no código.
+============================================================ */
+
+/* ------------------------------------------------------------
+   SEÇÃO DO MAPA
+   ------------------------------------------------------------ */
+.mapa-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--esp-5) var(--esp-8) var(--esp-16);
+}
+
+.mapa-header {
+    text-align: center;
+    margin-bottom: var(--esp-8);
+}
+
+.mapa-header span {
+    display: inline-block;
+    color: var(--cor-primaria);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-forte);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: var(--esp-3);
+}
+
+.mapa-header h2 {
+    color: var(--cor-primaria);
+    font-size: var(--fs-2xl);
+    margin-bottom: var(--esp-3);
+}
+
+.mapa-header p {
+    color: var(--cor-texto-suave);
+    font-size: var(--fs-base);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ------------------------------------------------------------
+   LAYOUT: MAPA + PAINEL
+   ------------------------------------------------------------ */
+.mapa-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--esp-6);
+    align-items: stretch;
+}
+
+#mapaBrasil {
+    height: 560px;
+    width: 100%;
+    border-radius: var(--raio-md);
+    box-shadow: var(--sombra-md);
+    background: #e8eef0;
+    z-index: 1;
+}
+
+/* ------------------------------------------------------------
+   PAINEL LATERAL
+   ------------------------------------------------------------ */
+.mapa-painel {
+    background: var(--cor-branco);
+    border-radius: var(--raio-md);
+    padding: var(--esp-6);
+    box-shadow: var(--sombra-md);
+    overflow-y: auto;
+    max-height: 560px;
+}
+
+.painel-vazio {
+    text-align: center;
+    color: var(--cor-texto-fraco);
+    margin-top: 70px;
+}
+
+.painel-vazio .icone {
+    font-size: 44px;
+    margin-bottom: var(--esp-3);
+}
+
+.painel-vazio h3 {
+    color: var(--cor-primaria);
+    font-size: var(--fs-md);
+    margin-bottom: var(--esp-2);
+}
+
+.painel-vazio p {
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+}
+
+/* Badge do bioma */
+.bioma-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: var(--raio-pill);
+    font-size: 12px;
+    font-weight: var(--fw-forte);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--cor-branco);
+    background: var(--cor-primaria);
+    margin-bottom: var(--esp-3);
+}
+
+.painel-estado-nome {
+    color: var(--cor-texto);
+    font-size: var(--fs-lg);
+    margin-bottom: var(--esp-5);
+}
+
+/* Cards de informação */
+.info-card {
+    display: flex;
+    gap: var(--esp-4);
+    padding: var(--esp-4);
+    border-radius: var(--raio-sm);
+    background: var(--cor-fundo);
+    margin-bottom: var(--esp-4);
+    border-left: 4px solid var(--cor-primaria);
+    transition: transform var(--trans-rapida), box-shadow var(--trans-rapida),
+                background var(--trans-rapida);
+    cursor: pointer;
+}
+
+.info-card:hover,
+.info-card:focus-visible {
+    transform: translateX(3px);
+    background: var(--cor-primaria-clara);
+    box-shadow: var(--sombra-sm);
+    outline: none;
+}
+
+.info-card.planta {
+    border-left-color: var(--cor-secundaria);
+}
+
+.info-card.planta:hover,
+.info-card.planta:focus-visible {
+    background: #fff0f5;
+}
+
+.info-card .info-icone {
+    font-size: 28px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cor-branco);
+    border-radius: var(--raio-sm);
+    flex-shrink: 0;
+}
+
+.info-card .info-texto {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card .info-label {
+    font-size: 11px;
+    font-weight: var(--fw-forte);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 3px;
+}
+
+.info-card .info-nome {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-forte);
+    color: var(--cor-texto);
+    margin-bottom: 4px;
+}
+
+.info-card .info-desc {
+    font-size: var(--fs-xs);
+    line-height: 1.5;
+    color: var(--cor-texto-suave);
+}
+
+/* Link "Ver detalhes →" dentro do card */
+.info-card .info-ver {
+    margin-top: var(--esp-2);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-forte);
+    color: var(--cor-primaria);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity var(--trans-rapida), transform var(--trans-rapida);
+}
+
+.info-card.planta .info-ver {
+    color: var(--cor-secundaria);
+}
+
+.info-card:hover .info-ver,
+.info-card:focus-visible .info-ver {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ------------------------------------------------------------
+   LEGENDA DE BIOMAS
+   ------------------------------------------------------------ */
+.mapa-legenda {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--esp-4);
+    margin-top: var(--esp-5);
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-2);
+    font-size: var(--fs-xs);
+    color: #444;
+    font-weight: var(--fw-medio);
+}
+
+.legenda-cor {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ------------------------------------------------------------
+   AJUSTES DO LEAFLET
+   ------------------------------------------------------------ */
+.leaflet-container {
+    font-family: var(--fonte-base);
+    border-radius: var(--raio-md);
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: var(--raio-sm);
+}
+
+.leaflet-popup-content {
+    margin: 12px 14px;
+}
+
+.popup-titulo {
+    font-weight: var(--fw-forte);
+    font-size: var(--fs-sm);
+    color: var(--cor-primaria);
+    margin-bottom: 6px;
+}
+
+.popup-linha {
+    font-size: var(--fs-xs);
+    color: #444;
+    margin: 3px 0;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVIDADE
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+    .mapa-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    #mapaBrasil {
+        height: 420px;
+    }
+
+    .mapa-painel {
+        max-height: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .mapa-section {
+        padding: var(--esp-3) var(--esp-5) var(--esp-12);
+    }
+
+    .mapa-header h2 {
+        font-size: var(--fs-xl);
+    }
+
+    #mapaBrasil {
+        height: 360px;
+    }
+}

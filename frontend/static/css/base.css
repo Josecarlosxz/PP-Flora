@@ -1,0 +1,707 @@
+/* ============================================================
+   BASE.CSS — BioSistema
+   ------------------------------------------------------------
+   Arquivo-mãe do CSS. Reúne, num só lugar:
+     1) RESET (zera margens/paddings do navegador)
+     2) VARIÁVEIS DE DESIGN (:root) — cores, raios, sombras
+     3) COMPONENTES GLOBAIS — navbar, botões, cards, formulários,
+        mensagens, toast, skeleton, estado vazio, footer, utilitários
+
+   É o arquivo que o seu base.html já referencia. Basta carregá-lo
+   e todas as páginas herdam o visual correto — inclusive o botão
+   "Entrar", que fica rosa (#ff5b91) em vez de cinza/preto.
+============================================================ */
+
+/* ============================================================
+   VARIABLES.CSS — Design Tokens do BioSistema
+   ------------------------------------------------------------
+   Este arquivo centraliza TODAS as cores, espaçamentos, sombras
+   e transições do sistema. Mude um valor aqui e ele muda em
+   todas as páginas automaticamente.
+
+   IMPORTANTE: escolha UMA paleta. O projeto hoje mistura
+   verde (#198754) e teal (#18a999). Abaixo deixei a paleta
+   VERDE ativa (a que você já usa em base.css) e a paleta TEAL
+   comentada — basta trocar se preferir o teal original.
+============================================================ */
+
+:root {
+
+    /* ========================================================
+       PALETA PRINCIPAL — VERDE (ativa)
+    ======================================================== */
+
+    --cor-primaria:        #198754;
+    --cor-primaria-escura: #12633d;
+    --cor-primaria-clara:  #eaf7f0;
+
+    --cor-secundaria:      #ff5b91;
+    --cor-secundaria-hover:#f44981;
+
+    /* ========================================================
+       PALETA ALTERNATIVA — TEAL (descomente para usar)
+       Basta remover os comentários e comentar a paleta verde.
+    ======================================================== */
+
+    /*
+    --cor-primaria:        #18a999;
+    --cor-primaria-escura: #128577;
+    --cor-primaria-clara:  #e6f7f5;
+
+    --cor-secundaria:      #ff5b91;
+    --cor-secundaria-hover:#f44981;
+    */
+
+    /* ========================================================
+       NEUTROS
+    ======================================================== */
+
+    --cor-branco:          #ffffff;
+    --cor-fundo:           #f5f8f6;
+    --cor-fundo-alt:       #f8faf9;
+    --cor-texto:           #333333;
+    --cor-texto-suave:     #666666;
+    --cor-texto-fraco:     #777777;
+    --cor-borda:           #e5e5e5;
+    --cor-borda-forte:     #d5d5d5;
+
+    /* ========================================================
+       FEEDBACK (erro / sucesso / aviso)
+    ======================================================== */
+
+    --cor-erro-fundo:      #ffe8ed;
+    --cor-erro-texto:      #c6284f;
+    --cor-sucesso-fundo:   #e5f8ed;
+    --cor-sucesso-texto:   #12633d;
+    --cor-aviso-fundo:     #fff6e5;
+    --cor-aviso-texto:     #8a6100;
+
+    /* ========================================================
+       TIPOGRAFIA
+    ======================================================== */
+
+    --fonte-base: "Inter", Arial, Helvetica, sans-serif;
+
+    --fs-xs:   13px;
+    --fs-sm:   15px;
+    --fs-base: 16px;
+    --fs-md:   18px;
+    --fs-lg:   22px;
+    --fs-xl:   28px;
+    --fs-2xl:  36px;
+    --fs-3xl:  46px;
+
+    --fw-normal: 400;
+    --fw-medio:  600;
+    --fw-forte:  700;
+    --fw-black:  800;
+
+    /* ========================================================
+       ESPAÇAMENTO (escala de 4px)
+    ======================================================== */
+
+    --esp-1:  4px;
+    --esp-2:  8px;
+    --esp-3:  12px;
+    --esp-4:  16px;
+    --esp-5:  20px;
+    --esp-6:  24px;
+    --esp-8:  32px;
+    --esp-10: 40px;
+    --esp-12: 48px;
+    --esp-16: 64px;
+
+    /* ========================================================
+       RAIOS
+    ======================================================== */
+
+    --raio-sm:  10px;
+    --raio-md:  14px;
+    --raio-lg:  22px;
+    --raio-pill: 999px;
+
+    /* ========================================================
+       SOMBRAS
+    ======================================================== */
+
+    --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --sombra-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --sombra-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+    --sombra-primaria: 0 10px 25px rgba(25, 135, 84, 0.25);
+    --sombra-secundaria: 0 10px 25px rgba(255, 91, 145, 0.25);
+
+    /* ========================================================
+       TRANSIÇÕES
+    ======================================================== */
+
+    --trans-rapida: 0.15s ease;
+    --trans-media:  0.25s ease;
+    --trans-lenta:  0.4s ease;
+
+    /* ========================================================
+       LAYOUT
+    ======================================================== */
+
+    --largura-max: 1300px;
+    --altura-navbar: 72px;
+}
+
+/* ============================================================
+   ACESSIBILIDADE — respeita "reduzir movimento" do sistema
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================================
+   COMPONENTS.CSS — Biblioteca de Componentes do BioSistema
+   ------------------------------------------------------------
+   Contém: reset, navbar, botões, cards, formulários, toast,
+   skeleton, estado vazio, footer, utilitários e responsivo.
+   Depende de variables.css (carregue-o ANTES deste arquivo).
+============================================================ */
+
+/* ============================================================
+   RESET
+============================================================ */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--fonte-base);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--cor-texto);
+    background: var(--cor-fundo);
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Foco visível para acessibilidade (teclado) */
+:focus-visible {
+    outline: 3px solid var(--cor-primaria);
+    outline-offset: 2px;
+    border-radius: var(--raio-sm);
+}
+
+/* ============================================================
+   CONTAINER
+============================================================ */
+
+.container {
+    width: 100%;
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: 0 var(--esp-6);
+}
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: var(--cor-branco);
+    border-bottom: 1px solid var(--cor-borda);
+    box-shadow: var(--sombra-sm);
+}
+
+.navbar-inner {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: 0 var(--esp-6);
+    height: var(--altura-navbar);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-4);
+}
+
+.navbar .logo {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-black);
+    color: var(--cor-primaria-escura);
+    letter-spacing: -0.5px;
+}
+
+.navbar .logo span {
+    color: var(--cor-secundaria);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-6);
+}
+
+.nav-links a {
+    font-weight: var(--fw-medio);
+    color: var(--cor-texto-suave);
+    transition: color var(--trans-rapida);
+}
+
+.nav-links a:hover {
+    color: var(--cor-primaria);
+}
+
+.usuario-area {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-4);
+}
+
+.usuario-area #nomeUsuario {
+    font-weight: var(--fw-medio);
+    color: var(--cor-texto);
+}
+
+/* Botão hambúrguer (mobile) */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--esp-2);
+}
+
+.nav-toggle span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    border-radius: var(--raio-pill);
+    background: var(--cor-primaria-escura);
+    transition: transform var(--trans-media), opacity var(--trans-media);
+}
+
+.nav-toggle.ativo span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.ativo span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.ativo span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ============================================================
+   BOTÕES
+============================================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--esp-2);
+    padding: var(--esp-3) var(--esp-6);
+    border: 2px solid transparent;
+    border-radius: var(--raio-md);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-forte);
+    cursor: pointer;
+    transition: transform var(--trans-rapida), background var(--trans-rapida),
+                box-shadow var(--trans-rapida), color var(--trans-rapida);
+    white-space: nowrap;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn-primario {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.btn-primario:hover:not(:disabled) {
+    background: var(--cor-primaria-escura);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-primaria);
+}
+
+.btn-secundario {
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+.btn-secundario:hover:not(:disabled) {
+    background: var(--cor-secundaria-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-secundaria);
+}
+
+.btn-contorno {
+    background: transparent;
+    border-color: var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+.btn-contorno:hover:not(:disabled) {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.btn-bloco {
+    width: 100%;
+}
+
+/* ============================================================
+   CARDS
+============================================================ */
+
+.card {
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-lg);
+    padding: var(--esp-8);
+    box-shadow: var(--sombra-sm);
+    transition: transform var(--trans-media), box-shadow var(--trans-media);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-md);
+}
+
+.card-icon {
+    font-size: 40px;
+    margin-bottom: var(--esp-4);
+}
+
+.card h3 {
+    font-size: var(--fs-lg);
+    color: var(--cor-primaria-escura);
+    margin-bottom: var(--esp-3);
+}
+
+.card p {
+    color: var(--cor-texto-suave);
+    margin-bottom: var(--esp-5);
+}
+
+.card a {
+    font-weight: var(--fw-forte);
+    color: var(--cor-primaria);
+}
+
+.card a:hover {
+    color: var(--cor-secundaria);
+}
+
+/* ============================================================
+   FORMULÁRIOS
+============================================================ */
+
+.input-group {
+    margin-bottom: var(--esp-6);
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: var(--esp-3);
+    font-weight: var(--fw-forte);
+    color: var(--cor-texto);
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: var(--esp-4) var(--esp-5);
+    border: 1px solid var(--cor-borda-forte);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+    transition: border-color var(--trans-rapida), box-shadow var(--trans-rapida);
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 4px rgba(25, 135, 84, 0.12);
+}
+
+/* Estado de erro no campo */
+.input-group.erro input {
+    border-color: var(--cor-erro-texto);
+    box-shadow: 0 0 0 4px rgba(198, 40, 79, 0.10);
+}
+
+.campo-erro {
+    display: block;
+    margin-top: var(--esp-2);
+    font-size: var(--fs-sm);
+    color: var(--cor-erro-texto);
+}
+
+/* ============================================================
+   MENSAGENS (erro / sucesso)
+============================================================ */
+
+.mensagem-erro,
+.mensagem-sucesso {
+    padding: var(--esp-4) var(--esp-5);
+    border-radius: var(--raio-sm);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--esp-5);
+}
+
+.mensagem-erro {
+    background: var(--cor-erro-fundo);
+    color: var(--cor-erro-texto);
+}
+
+.mensagem-sucesso {
+    background: var(--cor-sucesso-fundo);
+    color: var(--cor-sucesso-texto);
+}
+
+/* ============================================================
+   TOAST (notificações flutuantes)
+============================================================ */
+
+.toast-container {
+    position: fixed;
+    top: var(--esp-6);
+    right: var(--esp-6);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-3);
+    max-width: 360px;
+}
+
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--esp-3);
+    padding: var(--esp-4) var(--esp-5);
+    border-radius: var(--raio-md);
+    background: var(--cor-branco);
+    box-shadow: var(--sombra-lg);
+    border-left: 5px solid var(--cor-primaria);
+    animation: toastEntrar var(--trans-media) ease;
+}
+
+.toast.saindo {
+    animation: toastSair var(--trans-media) ease forwards;
+}
+
+.toast-erro    { border-left-color: var(--cor-erro-texto); }
+.toast-sucesso { border-left-color: var(--cor-primaria); }
+.toast-aviso   { border-left-color: var(--cor-aviso-texto); }
+
+.toast-icone { font-size: 20px; line-height: 1; }
+
+.toast-texto { font-size: var(--fs-sm); color: var(--cor-texto); }
+
+@keyframes toastEntrar {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastSair {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(40px); }
+}
+
+/* ============================================================
+   SKELETON (carregamento)
+============================================================ */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        #ececec 25%,
+        #f5f5f5 50%,
+        #ececec 75%
+    );
+    background-size: 200% 100%;
+    border-radius: var(--raio-sm);
+    animation: skeletonPulso 1.4s ease infinite;
+}
+
+.skeleton-texto { height: 14px; margin-bottom: var(--esp-2); }
+.skeleton-titulo { height: 24px; width: 60%; margin-bottom: var(--esp-4); }
+.skeleton-bloco { height: 120px; }
+
+@keyframes skeletonPulso {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   ESTADO VAZIO
+============================================================ */
+
+.estado-vazio {
+    text-align: center;
+    padding: var(--esp-16) var(--esp-6);
+    color: var(--cor-texto-fraco);
+}
+
+.estado-vazio .icone {
+    font-size: 56px;
+    margin-bottom: var(--esp-4);
+}
+
+.estado-vazio h3 {
+    color: var(--cor-texto);
+    margin-bottom: var(--esp-2);
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+.footer {
+    background: var(--cor-primaria-escura);
+    color: #d9f2e6;
+    padding: var(--esp-12) var(--esp-6) var(--esp-6);
+    margin-top: var(--esp-16);
+}
+
+.footer-inner {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--esp-10);
+}
+
+.footer h4 {
+    color: var(--cor-branco);
+    margin-bottom: var(--esp-4);
+}
+
+.footer a {
+    display: block;
+    color: #b9e3d0;
+    margin-bottom: var(--esp-2);
+    transition: color var(--trans-rapida);
+}
+
+.footer a:hover {
+    color: var(--cor-branco);
+}
+
+.footer-base {
+    max-width: var(--largura-max);
+    margin: var(--esp-10) auto 0;
+    padding-top: var(--esp-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+    font-size: var(--fs-sm);
+    color: #a9d8c4;
+}
+
+/* ============================================================
+   UTILITÁRIOS
+============================================================ */
+
+.texto-centro { text-align: center; }
+.mt-4 { margin-top: var(--esp-4); }
+.mt-8 { margin-top: var(--esp-8); }
+.mb-4 { margin-bottom: var(--esp-4); }
+.mb-8 { margin-bottom: var(--esp-8); }
+.escondido { display: none !important; }
+
+/* ============================================================
+   RESPONSIVO
+============================================================ */
+
+@media (max-width: 900px) {
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: var(--altura-navbar);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: var(--cor-branco);
+        border-bottom: 1px solid var(--cor-borda);
+        box-shadow: var(--sombra-md);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--trans-media);
+    }
+
+    .nav-links.aberto {
+        max-height: 420px;
+    }
+
+    .nav-links a {
+        padding: var(--esp-4) var(--esp-6);
+        border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: var(--esp-8);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 0 var(--esp-4);
+    }
+
+    .toast-container {
+        left: var(--esp-4);
+        right: var(--esp-4);
+        max-width: none;
+    }
+}

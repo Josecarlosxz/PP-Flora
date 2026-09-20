@@ -1,0 +1,253 @@
+/* ============================================================
+   DETALHE.CSS — Página de detalhes (animal / vegetação)
+   Usa os tokens definidos em base.css
+============================================================ */
+
+.detalhe-container {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: var(--esp-10) var(--esp-6) var(--esp-16);
+}
+
+/* ------------------------------------------------------------
+   BOTÃO VOLTAR
+------------------------------------------------------------ */
+
+.detalhe-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--esp-2);
+    margin-bottom: var(--esp-8);
+    padding: var(--esp-2) var(--esp-4);
+    border-radius: var(--raio-pill);
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-primaria);
+    font-weight: var(--fw-medio);
+    font-size: var(--fs-sm);
+    box-shadow: var(--sombra-sm);
+    transition: transform var(--trans-rapida), box-shadow var(--trans-rapida);
+}
+
+.detalhe-voltar:hover {
+    transform: translateX(-4px);
+    box-shadow: var(--sombra-md);
+}
+
+/* ------------------------------------------------------------
+   CABEÇALHO
+------------------------------------------------------------ */
+
+.detalhe-header {
+    text-align: center;
+    margin-bottom: var(--esp-12);
+}
+
+.detalhe-tipo {
+    display: inline-block;
+    padding: var(--esp-1) var(--esp-4);
+    border-radius: var(--raio-pill);
+    background: var(--cor-primaria-clara);
+    color: var(--cor-primaria-escura);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-forte);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--esp-4);
+}
+
+.detalhe-header h1 {
+    font-size: var(--fs-3xl);
+    color: var(--cor-primaria-escura);
+    line-height: 1.15;
+    margin-bottom: var(--esp-3);
+}
+
+.detalhe-sub {
+    color: var(--cor-texto-fraco);
+    font-size: var(--fs-md);
+}
+
+/* ------------------------------------------------------------
+   GRID (imagem + texto)
+------------------------------------------------------------ */
+
+.detalhe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--esp-10);
+    align-items: start;
+}
+
+/* ------------------------------------------------------------
+   IMAGEM
+------------------------------------------------------------ */
+
+.detalhe-imagem {
+    margin: 0;
+    position: sticky;
+    top: calc(var(--altura-navbar) + var(--esp-6));
+}
+
+.imagem-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--raio-lg);
+    overflow: hidden;
+    background: var(--cor-fundo-alt);
+    border: 1px solid var(--cor-borda);
+    box-shadow: var(--sombra-md);
+}
+
+.imagem-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.imagem-loading,
+.texto-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--esp-3);
+    color: var(--cor-texto-fraco);
+    font-size: var(--fs-sm);
+}
+
+.texto-loading {
+    position: static;
+    padding: var(--esp-10) 0;
+}
+
+.spinner {
+    width: 34px;
+    height: 34px;
+    border: 3px solid var(--cor-borda);
+    border-top-color: var(--cor-primaria);
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.detalhe-imagem figcaption {
+    margin-top: var(--esp-3);
+    font-size: var(--fs-xs);
+    color: var(--cor-texto-fraco);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* ------------------------------------------------------------
+   TEXTO
+------------------------------------------------------------ */
+
+.detalhe-texto {
+    font-size: var(--fs-base);
+    line-height: 1.8;
+    color: var(--cor-texto);
+}
+
+.texto-resumo {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-medio);
+    color: var(--cor-primaria-escura);
+    padding: var(--esp-5);
+    border-left: 4px solid var(--cor-secundaria);
+    background: var(--cor-primaria-clara);
+    border-radius: var(--raio-sm);
+    margin-bottom: var(--esp-8);
+}
+
+.texto-secao {
+    margin-bottom: var(--esp-8);
+}
+
+.texto-secao h2 {
+    font-size: var(--fs-lg);
+    color: var(--cor-primaria-escura);
+    margin-bottom: var(--esp-3);
+}
+
+.texto-secao p {
+    color: var(--cor-texto-suave);
+}
+
+.texto-secao ul {
+    list-style: none;
+    padding: 0;
+}
+
+.texto-secao ul li {
+    position: relative;
+    padding-left: var(--esp-6);
+    margin-bottom: var(--esp-3);
+    color: var(--cor-texto-suave);
+}
+
+.texto-secao ul li::before {
+    content: "🌿";
+    position: absolute;
+    left: 0;
+}
+
+.detalhe-wiki {
+    margin-top: var(--esp-4);
+}
+
+.texto-erro {
+    padding: var(--esp-8);
+    border-radius: var(--raio-md);
+    background: var(--cor-erro-fundo);
+    color: var(--cor-erro-texto);
+    text-align: center;
+}
+
+.texto-erro-dica {
+    font-size: var(--fs-sm);
+    margin-top: var(--esp-2);
+    opacity: 0.85;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVO
+------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    .detalhe-grid {
+        grid-template-columns: 1fr;
+        gap: var(--esp-8);
+    }
+
+    .detalhe-imagem {
+        position: static;
+    }
+
+    .detalhe-header h1 {
+        font-size: var(--fs-2xl);
+    }
+}
+
+@media (max-width: 600px) {
+    .detalhe-container {
+        padding: var(--esp-6) var(--esp-4) var(--esp-12);
+    }
+
+    .detalhe-header h1 {
+        font-size: var(--fs-xl);
+    }
+}
