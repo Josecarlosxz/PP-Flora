@@ -82,8 +82,9 @@ PP/
 ├── main.py
 ├── requirements.txt
 └── README.md
+```
 
-### 1. Abra um terminal
+### 1. Abra um terminal:
 - PowerShell ou CMD
 
 
