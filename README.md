@@ -84,24 +84,18 @@ PP/
 └── README.md
 ```
 
-### 1. Abra um terminal:
+### 1. Abra um terminal
 - PowerShell ou CMD
 
 
-### 2. Navegue até a pasta do backend:
-
-```bash
-cd d:\Users\COMPUTER\Documents\PP\backend
-```
-
-### 3. Crie e ative um ambiente virtual:
+### 2. Crie e ative um ambiente virtual:
 
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
-### 4. Instalar dependências
+### 3. Instalar dependências
 No diretório do backend, execute:
 
 ```bash
@@ -113,7 +107,7 @@ Caso ainda não exista um requirements.txt, instale as principais dependências:
 pip install flask python-dotenv mysql-connector-python
 ```
 
-### 5. Configurar o arquivo .env:
+### 4. Configurar o arquivo .env:
 Na raiz do projeto, crie um arquivo chamado:
 .env
 
@@ -139,7 +133,7 @@ __pycache__/
 *.pyc
 ```
 
-### 6. Inicie o MySQL:
+### 5. Inicie o MySQL:
 Abra o XAMPP e inicie:
 
 ```bash
@@ -148,7 +142,8 @@ MySQL
 ```
 O MySQL deve estar funcionando na porta: 3306
 
-### 7. Executar o projeto:
+### 6. Executar o projeto:
+Na raiz do projeto execute:
 
 ```bash
 python main.py
